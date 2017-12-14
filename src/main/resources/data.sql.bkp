@@ -1,0 +1,1 @@
+INSERT INTO player (id, name, age, role) VALUES (1, 'Piyush Sharma', 33, 'All Rounder')
