@@ -47,8 +47,39 @@
 </div>
 
 <div id="player" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
+    <h3>Players</h3>
+    <p>To enter players first select a team.</p>
+    <div class="row-container">
+        <select class="team-list">
+            <option value="noValue">Select team</option>
+            <c:forEach items="${teams}" var="team">
+                <option value="${team.id}">${team.name}</option>
+            </c:forEach>
+        </select>
+    </div><br><br>
+    <div class="player-container hidden">
+        <p>Enter Player details</p>
+
+        <div class="row-container">
+            <div class="row-item">Name</div>
+            <div class="row-item">Age</div>
+            <div class="row-item">Role</div>
+        </div>
+
+        <div class="row-container">
+            <div class="row-item">
+                <input type="text" name="name"/>
+            </div>
+            <div class="row-item">
+                <input type="text" name="age"/>
+            </div>
+            <div class="row-item">
+                <input type="text" name="row"/>
+            </div>
+            <input type="submit" value="Submit">
+        </div>
+
+    </div>
 </div>
 
 <div id="score" class="tabcontent">

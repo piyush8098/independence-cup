@@ -43,10 +43,28 @@
     flex-direction: row;
 }
 
+.player-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .row-item {
     width: 9rem;
     border: 1px solid #dddddd;
+    text-align: center;
+    padding: 0.3rem;
 }
+
+/* Generic hidden class */
+.hidden {
+    display: none;
+}
+
+.team-list {
+    width: 50%;
+    height: 3rem;
+}
+
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
     from {opacity: 0;}
