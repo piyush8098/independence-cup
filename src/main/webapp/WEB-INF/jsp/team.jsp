@@ -62,7 +62,7 @@
 
         <div class="row-container">
             <div class="row-item">Name</div>
-            <div class="row-item">Age</div>
+            <div class="row-item">Date of birth</div>
             <div class="row-item">Role</div>
         </div>
 
@@ -71,7 +71,7 @@
                 <input type="text" name="name"/>
             </div>
             <div class="row-item">
-                <input type="text" name="age"/>
+                <input type="date" name="dob"/>
             </div>
             <div class="row-item">
                 <input type="text" name="row"/>

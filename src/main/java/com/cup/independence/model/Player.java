@@ -3,13 +3,13 @@ package com.cup.independence.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "player")
+@Table(name = "player", uniqueConstraints={@UniqueConstraint(columnNames={"name", "dob"})})
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Integer age;
+    private String dob;
     private String role;
     private Integer totalRunsScored;
     private Integer totalOversBowled;
@@ -20,9 +20,9 @@ public class Player {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Player(String name, Integer age, String role, Integer totalRunsScored, Integer totalOversBowled, Integer ranking) {
+    public Player(String name, String dob, String role, Integer totalRunsScored, Integer totalOversBowled, Integer ranking) {
         this.name = name;
-        this.age = age;
+        this.dob = dob;
         this.role = role;
         this.totalRunsScored = totalRunsScored;
         this.totalOversBowled = totalOversBowled;
@@ -48,12 +48,12 @@ public class Player {
         this.name = name;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getDob() {
+        return dob;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getRole() {
@@ -101,7 +101,7 @@ public class Player {
         return "Player{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", age=" + age +
+                ", dob=" + dob +
                 ", role='" + role + '\'' +
                 ", totalRunsScored=" + totalRunsScored +
                 ", totalOversBowled=" + totalOversBowled +
