@@ -3,14 +3,8 @@ package com.cup.independence.dao;
 import com.cup.independence.model.Fixture;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 @Repository
-public class FixtureDAO {
-    @PersistenceContext
-    private EntityManager entityManager;
-
+public class FixtureDAO extends BaseDAO {
     public void create(Fixture fixture) {
         entityManager.persist(fixture);
     }

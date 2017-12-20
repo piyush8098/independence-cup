@@ -43,6 +43,11 @@ public class Team {
         this.totalOversBowled = totalOversBowled;
     }
 
+    public Team(String name, String groupName) {
+        this.name = name;
+        this.groupName = groupName;
+    }
+
     public Team() {
     }
 

@@ -9,7 +9,7 @@ $(document).ready(function(){
     });
 });
 
-function openTab(tabId) {
+function openTab(tabId, thisObj) {
     // Get all elements with class='tabcontent' and hide them
     $('.tabcontent').each(function () {
         $(this).hide();
@@ -22,8 +22,15 @@ function openTab(tabId) {
 
     // Show the current tab, and add an 'active' class to the button that opened the tab
     $('#' + tabId).show();
-    $(this).addClass('active');
-};
+    $(thisObj).addClass('active');
+}
+
+function addTeamsToTournament(tourneyId) {
+    openTab('team', $('#team-button'));
+    $('#tourney-id').val(tourneyId);
+    $('#teams-in-tourney-' + tourneyId).show();
+}
+
 
 function displayPlayerEntryTable(thisObj) {
     thisObj.find('option:selected').each(function(){
@@ -33,5 +40,9 @@ function displayPlayerEntryTable(thisObj) {
             $('.player-container').addClass('hidden');
         }
     });
-};
+}
+
+function addPlayer(teamId) {
+    $(".team-list").val(teamId);
+}
 

@@ -4,20 +4,21 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "tournament")
+@Table(name = "tournament", uniqueConstraints={@UniqueConstraint(columnNames={"tournamentName", "year"})})
 public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
     private String tournamentName;
     private String year;
-    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Team> teams;
+    private String format;
 
-    public Tournament(String tournamentName, String year) {
+    public Tournament(String tournamentName, String year, String format) {
         this.tournamentName = tournamentName;
         this.year = year;
+        this.format = format;
     }
 
     public Tournament() {
@@ -55,6 +56,14 @@ public class Tournament {
         this.teams = teams;
     }
 
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
     @Override
     public String toString() {
         return "Tournament{" +
@@ -62,6 +71,7 @@ public class Tournament {
                 ", tournamentName='" + tournamentName + '\'' +
                 ", year='" + year + '\'' +
                 ", teams=" + teams +
+                ", format='" + format + '\'' +
                 '}';
     }
 }

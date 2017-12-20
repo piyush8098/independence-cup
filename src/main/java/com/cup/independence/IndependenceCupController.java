@@ -1,14 +1,16 @@
 package com.cup.independence;
 
-import com.cup.independence.model.Player;
 import com.cup.independence.model.Team;
+import com.cup.independence.model.Tournament;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -19,29 +21,26 @@ public class IndependenceCupController {
     @Autowired
     private IndependenceCupService independenceCupService;
 
-    @GetMapping(value = "/admin")//, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"/admin", "/"})
     public ModelAndView display() {
         ModelMap model = new ModelMap();
-        Player player = independenceCupService.getPlayer(1);
-
-        model.addAttribute("player", player);
-        ModelAndView mv = new ModelAndView("home", model);
+        model.addAttribute("tournaments", independenceCupService.getAllTournaments());
+        ModelAndView mv = new ModelAndView("admin/home", model);
         return mv;
     }
 
     @PostMapping("/addTeam")
-    public ModelAndView addTeam(@RequestParam String name, @RequestParam(required = false) String groupName) {
-        ModelMap model = new ModelMap();
-        Team team = new Team();
-        team.setName(name);
-        team.setGroupName(groupName);
+    public ModelAndView addTeam(@RequestParam String name, @RequestParam Long tournamentId, @RequestParam(required = false) String groupName) {
+        Team team = new Team(name, groupName);
+        team.setTournament(independenceCupService.getTournament(tournamentId));
         independenceCupService.createTeam(team);
-        return displayTeams(model);
+        return display();
     }
 
-    @GetMapping("/team")
-    public ModelAndView displayTeams(ModelMap model) {
-        model.addAttribute("teams", independenceCupService.getAllTeams());
-        return new ModelAndView("team", model);
+    @PostMapping("/addTourney")
+    public ModelAndView addTourney(@RequestParam String name, @RequestParam(required = false) String year, String format) {
+        Tournament tournament = new Tournament(name, year, format);
+        independenceCupService.createTournament(tournament);
+        return display();
     }
 }

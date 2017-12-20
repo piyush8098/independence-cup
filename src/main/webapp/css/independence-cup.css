@@ -4,7 +4,9 @@
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
-
+body{
+    font-size: 16px;
+}
 /* Style the buttons that are used to open the tab content */
 .tab button {
     background-color: inherit;
@@ -60,11 +62,28 @@
     display: none;
 }
 
+.header {
+    background-color: aliceblue;
+    font-family: "Verdana";
+    font-size: 14px;
+}
 .team-list {
     width: 50%;
     height: 3rem;
 }
 
+.link {
+    color: royalblue;
+}
+
+.link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
     from {opacity: 0;}

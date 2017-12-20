@@ -3,14 +3,8 @@ package com.cup.independence.dao;
 import com.cup.independence.model.Player;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 @Repository
-public class PlayerDAO {
-    @PersistenceContext
-    private EntityManager entityManager;
-
+public class PlayerDAO extends BaseDAO {
     public void create(Player player) {
         entityManager.persist(player);
     }
