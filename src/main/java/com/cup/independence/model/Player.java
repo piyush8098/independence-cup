@@ -16,7 +16,7 @@ public class Player {
     private Integer ranking;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team;
 
@@ -68,7 +68,7 @@ public class Player {
         return team;
     }
 
-    public void setTeam(Team tea) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 
@@ -106,7 +106,6 @@ public class Player {
                 ", totalRunsScored=" + totalRunsScored +
                 ", totalOversBowled=" + totalOversBowled +
                 ", ranking=" + ranking +
-                ", team=" + team +
                 '}';
     }
 }

@@ -37,6 +37,10 @@ public class IndependenceCupService {
         return tournamentDAO.getTournamentById(id);
     }
 
+    public Team getTeam(Long id) {
+        return teamDAO.getTeamById(id);
+    }
+
     public Iterable<Tournament> getAllTournaments() {
         return tournamentDAO.getAllTournaments();
     }

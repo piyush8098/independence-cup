@@ -57,6 +57,16 @@ body{
     padding: 0.3rem;
 }
 
+.player-container input, .player-container select {
+    margin: 1rem;
+    padding: 0.5rem;
+}
+
+.players_team-name {
+    font-weight: bold;
+    color: #008b8b;
+}
+
 /* Generic hidden class */
 .hidden {
     display: none;

@@ -42,7 +42,27 @@ function displayPlayerEntryTable(thisObj) {
     });
 }
 
-function addPlayer(teamId) {
-    $(".team-list").val(teamId);
+/* Player related function */
+function addPlayer(teamId,teamName) {
+    openTab('player', $('#player-tab'));
+    $('#player .players_team-name').html(teamName);
+    $('#player #teamId').val(teamId);
+    getTeamPlayersList(teamId);
 }
+
+/* Will complete this next change */
+
+/*function getTeamPlayersList(teamId) {
+    $.ajax({
+        type : "GET",
+        url: "getPlayerList",
+        data: {'teamId' : teamId},
+        success : function(data) {
+            console.log('Success');
+        },
+        error : function(data) {
+            console.log('Failed');
+        }
+    });
+}*/
 

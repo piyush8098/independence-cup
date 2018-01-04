@@ -1,17 +1,19 @@
 package com.cup.independence;
 
+import com.cup.independence.model.Player;
 import com.cup.independence.model.Team;
 import com.cup.independence.model.Tournament;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Set;
 
 @Controller
 @EnableAutoConfiguration
@@ -43,4 +45,22 @@ public class IndependenceCupController {
         independenceCupService.createTournament(tournament);
         return display();
     }
+
+    @PostMapping("/addPlayer")
+    public ModelAndView addPlayer(@RequestParam String name, @RequestParam(required = false) String dob, @RequestParam String role,@RequestParam Long teamId) {
+        Player player = new Player(name,dob,role,0,0,0);
+        player.setTeam(independenceCupService.getTeam(teamId));
+        independenceCupService.createPlayer(player);
+        return display();
+    }
+
+
+    /* Will complete this next change */
+
+    /*@RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, value = "/getPlayerList")
+    public @ResponseBody Set<Player> getPlayerList(@RequestParam Long teamId){
+        Team team = independenceCupService.getTeam(teamId);
+        Set<Player> players = team.getPlayers();
+        return players;
+    }*/
 }
