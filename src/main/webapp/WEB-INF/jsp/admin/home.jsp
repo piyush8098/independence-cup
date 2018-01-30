@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +12,10 @@
 
 <!-- Tab links -->
 <div class="tab">
-    <button class="tablinks defaultOpen" id="tournament-tab" onclick="openTab('tournament', this)">Tournaments</button>
-    <button class="tablinks" id="team-tab" onclick="openTab('team', this)">Teams</button>
-    <button class="tablinks" id="player-tab" onclick="openTab('player')">Players</button>
-    <button class="tablinks" id="score-tab" onclick="openTab('score', this)">Score</button>
+    <button class="tablinks ${activeTab eq 'TOURNEY' || activeTab eq null ? 'defaultOpen':''}" id="tournament-tab" onclick="openTab('tournament', this)">Tournaments</button>
+    <button class="tablinks ${activeTab eq 'TEAM' ? 'defaultOpen':''}" id="team-tab" onclick="openTab('team', this)">Teams</button>
+    <button class="tablinks ${activeTab eq 'PLAYER' ? 'defaultOpen':''}" id="player-tab" onclick="openTab('player')">Players</button>
+    <button class="tablinks ${activeTab eq 'SCORE' ? 'defaultOpen':''}" id="score-tab" onclick="openTab('score', this)">Score</button>
 </div>
 
 <!-- Tab content -->
@@ -32,6 +33,10 @@
             <div class="row-item">${tournament.year}</div>
             <div class="row-item">${tournament.format}</div>
             <div class="row-item">
+                <form id="openteam-${tournament.id}" action="openTeam" method="post">
+                    <input type="hidden" name="tournamentId" value="${tournament.id}">
+                </form>
+
                 <div class="link" id="${tournament.id}" onclick="addTeamsToTournament(${tournament.id})">Add teams</div>
             </div>
         </div>
@@ -52,8 +57,8 @@
 
 <div id="team" class="tabcontent">
     <h2>Teams:</h2>
-    <c:forEach items="${tournaments}" var="tournament">
-        <div class="hidden" id="teams-in-tourney-${tournament.id}">
+
+        <div id="teams-in-tourney">
             <div class="row-container">
                 <div class="row-item header">Team Name</div>
                 <div class="row-item header">Action</div>
@@ -63,7 +68,7 @@
                 <div class="row-item">Points</div>
                 <div class="row-item">NRR</div>--%>
             </div>
-            <c:forEach items="${tournament.teams}" var="team">
+            <c:forEach items="${teams}" var="team">
                 <div class="row-container">
                     <div class="row-item">${team.name}</div>
                     <div class="row-item"><div class="link" onclick="addPlayer(${team.id},'${team.name}')">Add players</div></div>
@@ -76,14 +81,21 @@
             </c:forEach>
             <br><br>
             <h2>Add Team:</h2>
+            Tournament id is ${tournamentId}
             <form method="post" action="addTeam">
-                <input type="hidden" id="tourney-id" name="tournamentId"  />
+                <%--<input type="hidden" id="tourney-id" name="tournamentId"  />--%>
+
+                Tournament: <select id="tourney-id" name="tournamentId">
+                <c:forEach items="${tournaments}" var="tournament">
+                    <option value="${tournament.id}">${tournament.tournamentName}</option>
+                </c:forEach>
+            </select>
                 Team Name : <input type="text" name="name"/>
                 Group Name: <input type="text" name="groupName">
                 <input type="submit" value="Submit">
             </form>
         </div>
-    </c:forEach>
+
 
 
 </div>
@@ -134,8 +146,8 @@
 </div>
 
 <div id="score" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <h3>Scorecard</h3>
+    <p>Scorecard will appear here.</p>
 </div>
 <script type="text/javascript" src="<c:url value='/js/independence-cup.js' />"></script>
 </body>

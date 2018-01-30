@@ -11,7 +11,7 @@ public class Tournament {
     private Long id;
     private String tournamentName;
     private String year;
-    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Team> teams;
     private String format;
 

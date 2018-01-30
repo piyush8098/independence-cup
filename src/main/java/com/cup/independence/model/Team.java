@@ -5,17 +5,16 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
-@Table(name = "team")
+@Table(name = "team", uniqueConstraints={@UniqueConstraint(columnNames={"name", "tournament_id"})})
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Player> players;
     private Integer won;
     private Integer loss;
@@ -169,7 +168,7 @@ public class Team {
         return "Team{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", tournament=" + tournament +
+                ", tournament=" + tournament.getTournamentName() +
                 ", players=" + players +
                 ", won=" + won +
                 ", loss=" + loss +

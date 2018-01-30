@@ -26,9 +26,10 @@ function openTab(tabId, thisObj) {
 }
 
 function addTeamsToTournament(tourneyId) {
-    openTab('team', $('#team-button'));
-    $('#tourney-id').val(tourneyId);
-    $('#teams-in-tourney-' + tourneyId).show();
+    var formId = '#openteam-' + tourneyId;
+    $(formId).submit();
+    /*openTab('team', $('#team-tab'));
+    $('#tourney-id').val(tourneyId);*/
 }
 
 

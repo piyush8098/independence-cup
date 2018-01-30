@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -39,6 +40,10 @@ public class IndependenceCupService {
 
     public Team getTeam(Long id) {
         return teamDAO.getTeamById(id);
+    }
+
+    public List<Team> getTeamsByTournamentId(Long tourneyId) {
+        return teamDAO.getTeamsByTournamentId(tourneyId);
     }
 
     public Iterable<Tournament> getAllTournaments() {
