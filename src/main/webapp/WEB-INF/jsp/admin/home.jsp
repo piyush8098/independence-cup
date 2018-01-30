@@ -81,7 +81,6 @@
             </c:forEach>
             <br><br>
             <h2>Add Team:</h2>
-            Tournament id is ${tournamentId}
             <form method="post" action="addTeam">
                 <%--<input type="hidden" id="tourney-id" name="tournamentId"  />--%>
 

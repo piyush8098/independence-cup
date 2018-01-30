@@ -64,12 +64,13 @@ public class IndependenceCupController {
     @PostMapping("/addTeam")
     public ModelAndView addTeam(@RequestParam String name, @RequestParam Long tournamentId, @RequestParam(required = false) String groupName) {
         Team team = new Team(name, groupName);
-        team.setTournament(independenceCupService.getTournament(tournamentId));
+        Tournament currentTourney = independenceCupService.getTournament(tournamentId);
+        team.getTournaments().add(currentTourney);
         independenceCupService.createTeam(team);
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("activeTab", "TEAM");
         modelMap.addAttribute("tournamentId", tournamentId);
-        modelMap.addAttribute("teams", team.getTournament().getTeams());
+        modelMap.addAttribute("teams", currentTourney.getTeams());
         modelMap.addAttribute("tournaments", independenceCupService.getAllTournaments());
         return new ModelAndView("admin/home", modelMap);
     }
@@ -79,6 +80,7 @@ public class IndependenceCupController {
         Tournament tournament = new Tournament(name, year, format);
         independenceCupService.createTournament(tournament);
         ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute("tournaments", independenceCupService.getAllTournaments());
         modelMap.addAttribute("activeTab", "TOURNEY");
         return new ModelAndView("admin/home", modelMap);
     }

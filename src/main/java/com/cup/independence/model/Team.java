@@ -2,18 +2,23 @@ package com.cup.independence.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "team", uniqueConstraints={@UniqueConstraint(columnNames={"name", "tournament_id"})})
+@Table(name = "team")
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tournament_id")
-    private Tournament tournament;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="tournament_team",
+            inverseJoinColumns = {@JoinColumn(name = "tournamentId")},
+            joinColumns = {@JoinColumn(name = "teamId")}
+    )
+    private Set<Tournament> tournaments = new HashSet<>();
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Player> players;
     private Integer won;
@@ -155,12 +160,12 @@ public class Team {
         this.totalOversBowled = totalOversBowled;
     }
 
-    public Tournament getTournament() {
-        return tournament;
+    public Set<Tournament> getTournaments() {
+        return tournaments;
     }
 
-    public void setTournament(Tournament tournament) {
-        this.tournament = tournament;
+    public void setTournament(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
 
     @Override
@@ -168,7 +173,7 @@ public class Team {
         return "Team{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", tournament=" + tournament.getTournamentName() +
+                ", tournaments =" + tournaments.size() +
                 ", players=" + players +
                 ", won=" + won +
                 ", loss=" + loss +

@@ -1,6 +1,7 @@
 package com.cup.independence.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,8 +12,8 @@ public class Tournament {
     private Long id;
     private String tournamentName;
     private String year;
-    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Team> teams;
+    @ManyToMany(mappedBy = "tournaments")
+    private Set<Team> teams = new HashSet<>();
     private String format;
 
     public Tournament(String tournamentName, String year, String format) {
